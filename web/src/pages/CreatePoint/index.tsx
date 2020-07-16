@@ -1,5 +1,5 @@
 import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react'
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {FiArrowLeft} from 'react-icons/fi';
 import {Map, TileLayer, Marker} from 'react-leaflet';
 import axios from 'axios';
@@ -53,6 +53,9 @@ const CreatePoint = () => {
 
     //estado para salvar os dados de items no formulario
     const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+    //permite que navegue de uma pagina para outra
+    const history = useHistory();
 
     //buscando dentro da api.ts toda a api construida para items de dentro do back-end
     useEffect(() => {
@@ -147,10 +150,11 @@ const CreatePoint = () => {
             longitude,
             items
         };
-        console.log(data);
+        
         await api.post('points',data);
 
         alert ('ponto criado');
+        history.push('/');
     }
     
 
